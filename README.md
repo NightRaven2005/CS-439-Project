@@ -1,2 +1,3 @@
 Please Run Scrape.py first and then accept all pop ups and scroll to the end of the page in order for all the heroes to be included (Note not all the heroes are included in the final clustering as the attributes dataset is outdated)
+
 Then Run main.py and enter any hero name from the game that is in the attribute dataset and the 5 best recommendations based on playstyle and current rank trends are displayed for you
