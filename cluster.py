@@ -43,6 +43,29 @@ def run_clustering():
     kmeans = KMeans(n_clusters=8, random_state=42, n_init=10)
     df["cluster"] = kmeans.fit_predict(X_final)
 
+    # Evaluation of how well we clustered
+    score = silhouette_score(X_final, kmeans.labels_) 
+    print("Silhouette Score:", score)
+
+    pca = PCA(n_components=2)
+    pca_result = pca.fit_transform(X_final)
+
+    # Plot clusters
+    plt.figure(figsize=(10, 7))
+
+    scatter = plt.scatter(
+        pca_result[:, 0],
+        pca_result[:, 1],
+        c=kmeans.labels_
+    )
+
+    plt.title("PCA Projection of Hero Clusters")
+    plt.xlabel("Principal Component 1")
+    plt.ylabel("Principal Component 2")
+
+    plt.colorbar(scatter)
+    plt.show()
+
     conn = sqlite3.connect("mlbb_database.db")
     df.to_sql("clustered_hero_stats", conn, if_exists="replace", index=False)
     conn.commit()
